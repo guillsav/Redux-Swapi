@@ -21,9 +21,14 @@ class CharacterListView extends React.Component {
       return <h1>Loading...</h1>;
     }
     return (
-      <div className="CharactersList_wrapper">
-        <CharacterList characters={this.props.characters} />
-      </div>
+      <React.Fragment>
+        {this.props.error && <div>{this.props.error}</div>}
+        {this.props.characters && (
+          <div className="CharactersList_wrapper">
+            <CharacterList characters={this.props.characters} />
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 }
@@ -31,7 +36,8 @@ class CharacterListView extends React.Component {
 const mapStateToProps = state => {
   return {
     characters: state.charsReducer.characters,
-    fetching: state.charsReducer.isFetching
+    fetching: state.charsReducer.isFetching,
+    error: state.charsReducer.error
   };
 };
 
